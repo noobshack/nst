@@ -2,10 +2,12 @@ resource "kubernetes_service" "example" {
   metadata {
     name = "terraform-example"
   }
+
   spec {
     selector {
       app = "${kubernetes_pod.example.metadata.0.labels.app}"
     }
+
     session_affinity = "ClientIP"
     port {
       port = 8080
@@ -13,22 +15,26 @@ resource "kubernetes_service" "example" {
     }
 
     type = "LoadBalancer"
+
   }
 }
 
-resource "kubernetes_pod" "example" {
+resource "kubernetes_pod" "atlantis" {
+
   metadata {
-    name = "terraform-example"
+    name = "atlantis"
+
     labels {
-      app = "MyApp"
+      app = "atlantis"
+      component = "tf"
     }
   }
 
   spec {
     container {
-      image = "nginx:1.7.9"
-      name  = "example"
+      image = "hootsuite:latest"
+      name  = "atlantis"
     }
+
   }
 }
-»
