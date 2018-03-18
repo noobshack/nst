@@ -3,7 +3,7 @@
 *.tfvars
 .terraform/*
 secret.tf
-
+*/.terraform
 # Python
 *.pyc
 
