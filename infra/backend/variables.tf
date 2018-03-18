@@ -1,3 +1,3 @@
 locals {
-  region = "${var.region}"
+ project = "noobshack-164103"
 }
