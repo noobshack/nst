@@ -5,7 +5,7 @@ provider "google" {
 }
 
 resource "google_container_cluster" "nsk" {
-  name   = "nsk"
+  name   = "${var.service}"
   region = "${var.region}"
 
   remove_default_node_pool = true
@@ -24,7 +24,7 @@ resource "google_container_cluster" "nsk" {
       managed_by = "terraform"
     }
 
-    tags = ["noobshack"]
+    tags = ["noobshack", "${var.service}"]
   }
 }
 
@@ -32,7 +32,7 @@ resource "google_container_node_pool" "preemptible" {
   name       = "${var.service}-preemptible"
   region     = "${var.region}"
   cluster    = "${google_container_cluster.nsk.name}"
-  node_count = 3
+  node_count = 1
 
   node_config {
     preemptible  = true
