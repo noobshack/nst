@@ -1,3 +1,14 @@
+terraform {
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "noobshack"
+
+    workspaces {
+      name = "diviner"
+    }
+  }
+}
+
 # Kubernetes Terraform provider
 provider "google" {
   project = "noobshack-164103"
@@ -7,10 +18,30 @@ provider "google" {
 resource "google_container_cluster" "nsk" {
   name   = "${var.service}"
   region = "${var.region}"
-
-  remove_default_node_pool = true
+  description = "GKE cluster for ${local.service}"
 
   initial_node_count = 1
+  remove_default_node_pool = true
+
+  addons_config {
+    http_load_balancing {
+      disabled = true
+    }
+
+    horizontal_pod_autoscaling {
+      disabled = true
+    }
+
+    kubernetes_dashboard {
+      disabled = true
+    }
+  }
+
+  maintenance_policy {
+    daily_maintenance_window {
+      start_time = "03:00"
+    }
+  }
 
   node_config {
     oauth_scopes = [

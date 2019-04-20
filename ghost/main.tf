@@ -1,7 +1,11 @@
 terraform {
-  backend "gcs" {
-    bucket = "noobshack-terraform-state"
-    prefix = "ghost"
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "noobshack"
+
+    workspaces {
+      name = "ghost"
+    }
   }
 }
 

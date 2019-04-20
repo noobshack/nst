@@ -1,3 +1,4 @@
+# Resource needs to be cleaned up and then removed.
 terraform {
   backend "gcs" {
     bucket  = "noobshack-terraform-state"
