@@ -3,6 +3,7 @@ noobshack Terraform
 
 For all resources using the Google provider make sure to set the environment variable GOOGLE_APPLICATION_CREDENTIALS.
 
+dns - manage all DNS for various domains
 diviner - nsk 2.0
 ghost - blog pod deployment
 github - management of noobshack GitHub organization
