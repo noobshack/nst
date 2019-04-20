@@ -1,7 +1,11 @@
 terraform {
-  backend "gcs" {
-    bucket = "noobshack-terraform-state"
-    prefix = "overwatch-mixer"
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "noobshack"
+
+    workspaces {
+      name = "overwatch_mixer"
+    }
   }
 }
 
