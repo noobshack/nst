@@ -1,6 +1,6 @@
 terraform {
   backend "remote" {
-    hostname = "app.terraform.io"
+    hostname     = "app.terraform.io"
     organization = "noobshack"
 
     workspaces {
@@ -16,11 +16,11 @@ provider "google" {
 }
 
 resource "google_container_cluster" "nsk" {
-  name   = "${var.service}"
-  region = "${var.region}"
-  description = "GKE cluster for ${local.service}"
+  name        = "${var.service}"
+  region      = "${var.region}"
+  description = "GKE cluster for ${var.service}"
 
-  initial_node_count = 1
+  initial_node_count       = 1
   remove_default_node_pool = true
 
   addons_config {

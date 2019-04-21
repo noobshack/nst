@@ -28,18 +28,17 @@ resource "github_repository_webhook" "atlantis" {
   events = ["PullRequestReviewEvent", "PushEvent", "IssueCommentEvent", "PullRequestEvent"]
 }
 
-resource "github_repository_webhook" "atlantis" {
+resource "github_repository_webhook" "discord" {
   repository = "${github_repository.nst.name}"
-  name       = "atlantis"
+  name       = "noobshack-discord-diviner"
 
   configuration {
-    url          = "http://atlantis.noobshack.net/events"
+    url          = "https://discordapp.com/api/webhooks/568209874337660928/${var.discord_token}"
     content_type = "json"
-    secret       = "${var.github_webhook_secret_nst}"
     insecure_ssl = false
   }
 
   active = true
 
-  events = ["PullRequestReviewEvent", "PushEvent", "IssueCommentEvent", "PullRequestEvent"]
+  events = ["PushEvent"]
 }
