@@ -5,7 +5,7 @@ variable "github_webhook_secret_nst" {}
 
 variable "discord_token" {
   type    = "string"
-  default = "pqrCQkBNugpDilBCTvzcqY31tPcWGHUjMJ22KLOlkIwS_tDq8dSJvSYN-y5ZNUnJhUh9"
+  default = "vz2a0c7-7AWS_eyOXZH7I8UCVrJVTRjUwvLRO2W_bEZ9IK_Iy4SQQwiTBUISHYm7aNmF"
 }
 
 // Provider variables

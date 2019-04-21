@@ -33,7 +33,7 @@ resource "github_repository_webhook" "discord" {
   name       = "noobshack-discord-diviner"
 
   configuration {
-    url          = "https://discordapp.com/api/webhooks/568209874337660928/${var.discord_token}"
+    url          = "https://discordapp.com/api/webhooks/569640627239649282/${var.discord_token}/github"
     content_type = "json"
     insecure_ssl = false
   }
