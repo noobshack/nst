@@ -20,4 +20,7 @@ Deploy a Kubernetes cluster to Google Cloud via Terraform. Allows configuration 
  - container cluster size
  - availability zones
 
-
+# TODO:
+- import existing resources
+- manage secrets
+- migrate to 0.12.0
