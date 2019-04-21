@@ -1,7 +1,7 @@
 # nst
 noobshack Terraform
 
-For all resources using the Google provider make sure to set the environment variable GOOGLE_APPLICATION_CREDENTIALS.
+For all resources using the Google provider make sure to set the environment variable GOOGLE_APPLICATION_CREDENTIALS or configure your `gcloud` command line utility.
 
 dns - manage all DNS for various domains
 diviner - nsk 2.0
