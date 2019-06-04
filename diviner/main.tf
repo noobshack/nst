@@ -59,25 +59,6 @@ resource "google_container_cluster" "nsk" {
   }
 }
 
-resource "google_container_node_pool" "preemptible" {
-  name       = "${var.service}-preemptible"
-  region     = "${var.region}"
-  cluster    = "${google_container_cluster.nsk.name}"
-  node_count = 0
-
-  node_config {
-    preemptible  = true
-    machine_type = "f1-micro"
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/compute",
-      "https://www.googleapis.com/auth/devstorage.read_only",
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
-  }
-}
-
 resource "google_container_node_pool" "dedicated" {
   name       = "${var.service}-dedicated"
   region     = "${var.region}"

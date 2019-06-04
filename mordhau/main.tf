@@ -1,4 +1,3 @@
-/*
 // TF
 terraform {
   required_version = "= 0.11.13"
@@ -14,6 +13,11 @@ terraform {
 }
 
 # Kubernetes Terraform provider
+provider "kubernetes" {
+  config_context_auth_info = "gke_noobshack-164103_us-east1_althea"
+  config_context_cluster   = "gke_noobshack-164103_us-east1_althea"
+}
+
 provider "google" {
   project = "noobshack-164103"
   region  = "us-west2"
@@ -23,6 +27,18 @@ data "template_file" "mordhau" {
   template = "${file("mordhau_cloudinit.sh")}"
 }
 
+data "google_compute_network" "default" {
+  name    = "default"
+  project = "${local.project}"
+}
+
+data "google_compute_subnetwork" "default" {
+  name    = "default"
+  project = "${local.project}"
+  region  = "${local.region}"
+}
+
+/*
 resource "google_compute_instance" "mordhau" {
   count = "${local.servers}"
 
@@ -35,13 +51,13 @@ resource "google_compute_instance" "mordhau" {
 
     initialize_params {
       image = "projects/ubuntu-os-cloud/global/images/${local.ubuntu_xenial_image}"
-      size  = 10
+      size  = 15
       type  = "pd-standard"
     }
   }
 
   network_interface {
-    subnetwork         = "${data.google_compute_subnetwork.default.self_link}"
+    subnetwork = "${data.google_compute_subnetwork.default.self_link}"
 
     network_ip = "${lookup(local.internal_ips, count.index)}"
 
@@ -67,19 +83,6 @@ resource "google_compute_instance" "mordhau" {
   }
 }
 
-// Networking components
-data "google_compute_network" "default" {
-  name    = "default"
-  project = "${local.project_id}"
-}
-
-data "google_compute_subnetwork" "default" {
-  name    = "default"
-  project = "${local.project_id}"
-  region  = "us-east1"
-}
-
-/*
 resource "google_compute_firewall" "mordhau" {
   name        = "${local.service}-${local.region}"
   network     = "${data.google_compute_network.default.self_link}"
@@ -96,7 +99,6 @@ resource "google_compute_firewall" "mordhau" {
 
   priority = 777
 }
-*/
 
 resource "google_compute_address" "mordhau_internal" {
   name         = "${local.service}-internal"
@@ -111,3 +113,5 @@ resource "google_compute_address" "mordhau_external" {
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
 }
+*/
+

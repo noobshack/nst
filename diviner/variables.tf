@@ -6,5 +6,5 @@ variable "region" {
 
 variable "service" {
   type    = "string"
-  default = "nsk"
+  default = "althea"
 }

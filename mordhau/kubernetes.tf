@@ -8,7 +8,7 @@ resource "kubernetes_deployment" "mordhau" {
   }
 
   spec {
-    replicas = 3
+    replicas = 1
 
     selector {
       match_labels {
@@ -24,8 +24,10 @@ resource "kubernetes_deployment" "mordhau" {
       }
 
       spec {
+        host_network = true
+
         container {
-          image = "cm2network/mordhau:${local.mordhau_version}"
+          image = "gcr.io/${local.project}/mordhau:${local.mordhau_version}"
           name  = "${local.service}"
 
           resources {
@@ -45,9 +47,49 @@ resource "kubernetes_deployment" "mordhau" {
   }
 }
 
+/*
+resource "kubernetes_endpoints" "mordhau" {
+  metadata {
+    name = "${local.service}"
+
+    labels {
+      app = "${local.service}"
+    }
+  }
+
+  subset {
+    address {
+      ip = ""
+    }
+
+    port {
+      name     = "http"
+      port     = 80
+      protocol = "TCP"
+    }
+
+    port {
+      name     = "https"
+      port     = 443
+      protocol = "TCP"
+    }
+
+    port {
+      name     = "http"
+      port     = 80
+      protocol = "TCP"
+    }
+  }
+}
+*/
+
 resource "kubernetes_service" "mordhau" {
   metadata {
-    name = "mordhau"
+    name = "${local.service}"
+
+    labels {
+      app = "${local.service}"
+    }
   }
 
   spec {
@@ -57,13 +99,24 @@ resource "kubernetes_service" "mordhau" {
 
     session_affinity = "ClientIP"
 
-    port {
-      port        = 80
-      target_port = 2368
-    }
-
     type = "LoadBalancer"
 
-    load_balancer_ip = "${google_compute_address.mordhau_external.address}"
+    port {
+      name        = "gameserver"
+      port        = 7777
+      target_port = 7777
+    }
+
+    port {
+      name        = "queryport"
+      port        = 27015
+      target_port = 27015
+    }
+
+    port {
+      name        = "beaconport"
+      port        = 15000
+      target_port = 15000
+    }
   }
 }
