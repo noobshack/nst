@@ -22,5 +22,5 @@ Deploy a Kubernetes cluster to Google Cloud via Terraform. Allows configuration 
 
 # TODO:
 - import existing resources
-- manage secrets
+- manage secrets (secrethub)
 - migrate to 0.12.0
